@@ -1,4 +1,3 @@
-# berlin-clock
-Berlin Clock
+# Berlin Clock
 
-Converts standar time (HH:mm:ss) to Berlin Clock Time
+Converts standard time (HH:mm:ss) to Berlin Clock Time
