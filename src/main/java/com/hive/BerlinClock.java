@@ -4,11 +4,15 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Converts local time (HH:mm:ss) to Berlin Clock Time
+ */
 public class BerlinClock {
 
     public static final String OFF = "0";
@@ -16,15 +20,20 @@ public class BerlinClock {
     public static final String RED = "R";
     public static final String NEW_LINE = "\n";
     public static final String BLANK = "";
+    public static final String TIME_FORMAT = "HH:mm:ss";
 
     private String time;
 
-    public BerlinClock(String standardTime) {
-        LocalTime localTime = LocalTime.parse(standardTime, DateTimeFormatter.ISO_TIME);
-        this.time = convertToBerlinClockTime(localTime);
+    public BerlinClock(String timeInput) {
+        try {
+            LocalTime localTime = LocalTime.parse(timeInput, DateTimeFormatter.ofPattern(TIME_FORMAT));
+            this.time = convertToBerlinClockTime(localTime);
+        } catch (DateTimeParseException ex) {
+            throw new IllegalArgumentException(String.format("Invalid Time Format for input : %s, please enter '%s' format", timeInput, TIME_FORMAT));
+        }
     }
 
-    public String displayTime() {
+    public String getTime() {
         return this.time;
     }
 
